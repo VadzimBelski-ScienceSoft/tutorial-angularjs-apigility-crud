@@ -1,0 +1,78 @@
+<div class="page-header">
+    <a class="btn btn-sm btn-primary pull-right"
+       href="<?php echo $this->url('cliente', array('action' => 'adicionar')); ?>">
+        <span class="glyphicon glyphicon-plus"></span>
+        Adicionar
+    </a>
+    <h3>Clientes</h3>
+</div>
+
+<div ng-controller="ClienteController">
+    <div class="input-group col-sm-6 col-md-3">
+        <input type="text" class="form-control input-sm" ng-model="searchText" 
+               placeholder="Pesquisar" type="search" ng-change="search()" />
+        <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+    </div>
+    <table class="table table-striped table-condensed">
+        <thead>
+            <tr>
+                <th>
+                    Nome
+                </th>
+                <th>
+                    Editar
+                </th>
+                <th>
+                    Excluir
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="cliente in paginator._embedded.cliente">
+                <td>
+                    {{cliente.nome}}
+                </td>
+                <td>
+                    <a href="<?php
+                    echo $this->url('cliente', array(
+                        'action' => 'editar'
+                    ));
+                    ?>/{{cliente.id}}">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        Editar
+                    </a>
+                </td>
+                <td>
+                    <a href="#"
+                       ng-click="excluir(cliente._links.self.href)">
+                        <span class="glyphicon glyphicon-trash"></span>
+                        Excluir
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <ul class="pagination">
+        <li ng-if="paginator._links.prev">
+            <a href="#"
+               ng-click="navigate(paginator._links.prev.href)">
+                &lt;&lt;
+            </a>
+        </li>
+        <li ng-repeat="i in getNumber(paginator.page_count) track by $index"
+            ng-attr-class="{{paginator.pageActive == $index + 1 && 'active'}}"
+            >
+            <a
+                ng-click="navigate(paginator._links.first.href, ($index + 1))"
+                href="#"
+                >{{$index + 1}}
+            </a>
+        </li>
+        <li ng-if="paginator._links.next">
+            <a href="#" 
+               ng-click="navigate(paginator._links.next.href)" >
+                &gt;&gt;
+            </a>        
+        </li>
+    </ul>
+</div>
