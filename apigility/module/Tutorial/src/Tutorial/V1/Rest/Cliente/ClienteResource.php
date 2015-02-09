@@ -52,14 +52,7 @@ class ClienteResource extends AbstractResourceListener {
      * @return ApiProblem|mixed
      */
     public function delete($id) {
-        $result = $this
-                ->tableGateway
-                ->select(
-                        array(
-                            'id' => $id
-                        )
-                )
-                ->current();
+        $result = $this->fetch($id);
         if (!$result) {
             return new ApiProblem(404, 'Registro não encontrado');
         }

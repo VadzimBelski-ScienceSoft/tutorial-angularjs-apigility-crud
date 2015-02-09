@@ -5,7 +5,7 @@
             <span class="glyphicon glyphicon-backward"></span>
             Voltar
         </a>
-        <h3>Clientes <small>{{form.id == "" ? "Adcionar" : "Editar"}} {{form.nome}}</small></h3>
+        <h3>Clientes <small>{{form.id == "" ? "Adicionar" : "Editar"}} {{form.nome}}</small></h3>
     </div>
     <?php echo str_replace('action=""', '', $this->form()->openTag($form)); ?>
     <?php foreach ($form->getElements() as $element): ?>
